@@ -5,7 +5,7 @@ function App() {
   return (
     <div className="App">
       <DatePicker/>
-      <Button type="primary">Button</Button>
+      <Button type="danger">Button</Button>
     </div>
   );
 }
