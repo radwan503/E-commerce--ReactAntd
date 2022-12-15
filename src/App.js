@@ -1,13 +1,21 @@
 import './App.css';
-import { Button, DatePicker } from 'antd';
+import {BrowserRouter} from 'react-router-dom';
+import AppHeader from './components/Header';
+import AppFooter from './components/Footer';
+import PageContent from './components/PageContent';
 
 function App() {
   return (
     <div className="App">
-      <DatePicker/>
-      <Button type="danger">Button</Button>
+      <BrowserRouter>
+        <AppHeader/>
+        <PageContent/>
+        <AppFooter/>
+      </BrowserRouter>
+     
     </div>
   );
 }
+
 
 export default App;
