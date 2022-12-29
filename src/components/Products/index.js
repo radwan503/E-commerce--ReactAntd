@@ -1,4 +1,4 @@
-import { Badge, Button, Card, Image, List, message, Rate, Spin, Typography } from 'antd'
+import { Badge, Button, Card, Image, List, message, Rate, Select, Spin, Typography } from 'antd'
 import React, { useState, useEffect } from 'react';
 import {useParams} from 'react-router-dom';
 import { getAllProduct,addToCart,getCategoryByProducts } from '../../API';
@@ -8,6 +8,7 @@ import { getAllProduct,addToCart,getCategoryByProducts } from '../../API';
 const Products = () => {
     const param = useParams();
     const [items, setItems] = useState([]);
+    const [sortOrder,setSetOrder] =  useState("az")
 
     const [loading, setLoading] = useState(false)
     useEffect(() => {
@@ -30,15 +31,61 @@ const Products = () => {
        
     } 
 
+    const getSortedItems = () =>{
+        const sortedItems = [...items];
+    sortedItems.sort((a,b)=>{
+        const aLowerCase =  a.title.toLowerCase();
+        const bLowerCase =  b.title.toLowerCase();
+
+        if(sortOrder === "az"){
+            return aLowerCase > bLowerCase ? 1: aLowerCase === bLowerCase ? 0 : -1
+        }
+        else if(sortOrder === "za"){
+            return aLowerCase < bLowerCase ? 1: aLowerCase === bLowerCase ? 0 : -1
+        }
+        else if(sortOrder === "lowhigh"){
+            return a.price > b.price ? 1: a.price === b.price ? 0 : -1
+        }
+        else if(sortOrder === "highlow"){
+            return a.price < b.price ? 1: a.price === b.price ? 0 : -1
+        }
+    })
+    return sortedItems;
+    }
+
     if(loading){
         return <Spin spinning/>
     }
 
     return (
-        <div>
-            <List grid={{ column: 4 }} dataSource={items} renderItem={(product, index) => {
+        <div className='productContainer'>
+            <div>
+                <Typography.Text>View Item Sorted</Typography.Text>
+                <Select onChange={(value)=>{
+                    setSetOrder(value)
+                }} 
+                defaultValue={'az'} options={[
+                   {
+                     label:'Alphabitically A-Z',
+                     value:'az'
+                    },
+                    {
+                      label:'Alphabitically Z-A',
+                      value:'za'
+                    },
+                    {
+                     label:'Price Low to High',
+                     value:'lowhigh'
+                    },
+                    {
+                     label:'Price high to low',
+                     value:'highlow'
+                    }
+                ]}></Select>
+            </div>
+            <List loading={loading} grid={{ column: 4 }} dataSource={getSortedItems()} renderItem={(product, index) => {
                 return (
-                <Badge.Ribbon className='itemCardBadge' text={product.discountPercentage}>
+                <Badge.Ribbon className='itemCardBadge' text={`${product.discountPercentage} %OFF`}>
                     <Card className='itemCard' 
                     title={product.title} key={index} 
                     cover={<Image className='itemCardImage' src={product.thumbnail}></Image>}

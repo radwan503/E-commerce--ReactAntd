@@ -10,18 +10,28 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 0 30px;
+  padding: 0 30px;
+  box-shadow: 1px 4px 4px  #00000033;
 }
 
 .pageContent {
   display: flex;
   flex: 1;
   overflow-y: auto;
+  margin-top: 2px;
 }
-
+.appMenu{
+  border: none;
+}
+.productContainer{
+  padding: 8px;
+}
 .appFooter {
   height: 60px;
   background-color: black;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .itemCardImage {
