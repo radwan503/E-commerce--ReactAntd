@@ -122,7 +122,9 @@ const AppCart = ()=>{
                                             cart.total = cart.price * value;
                                         }
                                         return cart;
-                                    })
+                                    }
+                                    
+                                    )
                                 )
                             }}>
                                 

@@ -4,7 +4,7 @@ import Products from '../../components/Products';
 const Category = () => {
   return (
     <div>
-      <Products />
+      <Products/>
     </div>
   )
 }
